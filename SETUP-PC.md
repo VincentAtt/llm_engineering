@@ -82,6 +82,9 @@ If not, it's not a big deal, but we might need to come back to this later if you
 You can download python here:  
 https://www.python.org/downloads/
 
+> warning : torch (PyTorch...) is not available for python3.13, I went for python3.11 as recommended above. I ![downloaded it](https://www.python.org/downloads/release/python-3110/) and changed the interpreter on vscode: *Appuie sur `Ctrl + Shift + P` (Windows) pour ouvrir la palette de commandes, tape "Python: Select Interpreter" et sélectionne cette option.
+Tu devrais voir une liste des interpréteurs Python disponibles, y compris ton environnement virtuel (il aura un chemin ressemblant à ./venv/...). Sélectionne l'interpréteur de ton environnement virtuel*.
+
 2. Navigate to the "project root directory" by entering something like `cd C:\Users\YourUsername\Documents\Projects\llm_engineering` using the actual path to your llm_engineering project root directory. Do a `dir` and check you can see subdirectories for each week of the course.  
 
 Then, create a new virtual environment with this command:  
