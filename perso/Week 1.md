@@ -5,6 +5,19 @@ website : https://edwarddonner.com/
 
 Course : https://edwarddonner.com/2024/11/13/llm-engineering-resources/, including slides on a gdrive to download.
 
+---
+
+# Content
+
+1. day1 : summarizing fixed URLs thanks to OPENAI_API
+2. day2 : adapting it to ollama (a clean correction is available)
+3. day3 : comparing models
+4. day4 : Models framework : trends, factors, costs
+5. day5 : exercise
+
+This week includes a guide to Jupyter (or notebooks?), some Pythons commands to learn, a troubleshooting code
+
+
 # Ollama
 
 after downloading ollama ![here](https://ollama.com/download), powershell `ollama run llama3.2`.
@@ -35,17 +48,7 @@ Quinn2.5 is probably the best to handle different languages.
 
 The key is stored in ".env", a txt file modified to be exactly named ".env" so that other instances understands where to look for it. It starts with `OPENAI_API_KEY=`, then you need to insert the API key ![built here](https://platform.openai.com/settings/organization/api-keys) with no space before.
 
----
-
-# Course
-
-1. day1 : summarizing fixed URLs thanks to OPENAI_API
-2. day2 : adapting it to ollama (a clean correction is available)
-3. day3 : comparing models
-
-This week includes a guide to Jupyter (or notebooks?), some Pythons commands to learn, a troubleshooting code
-
----
+# Using models
 
 Remember there are **3 ways to use models** :
 - Chat interfaces such as *ChatGPT*
@@ -74,7 +77,7 @@ At the end on 2024, Frontier is:
 
 ### Day 3 : comparing models
 
-![image]('./perso/pic/1_3_models')
+![image]('./pictures/1_3_models.PNG')
 
 Frontier LLMs have mind-blowing performance for :
 - synthesizing information
@@ -110,7 +113,47 @@ In conclusion, they are all good, particularly at synthesis and generating nuanc
 
 As they all converge in capability, price may become the differenciator. Recent innovations have focused on lower cost variants, for instance `4o-mini`.
 
-Then Ed had fun launching 3 models competing to become the leader of the pack by delivering a speech and vote.
+Then Ed had fun launching 3 models competing to become the leader of the pack by delivering a speech and vote. Claude won !
+
+### Day 4 : Models framework
+
+As opposed to API, chats have **RLHF : Reinforcement Learning from Human Feedback**.
+
+#### Trends
+
+The world’s reactions when ChatGPT came out : shock, then healthy skepticism (it is just a predictive text on steroids; the stochastic parrot), then people tends to consider it as an “emergent intelligence”, a virtual intellegigence whose capabilities come as a result of scale.
+
+Trends :
+- “Prompt engineers” demand have risen, and fallen as it became ubiquitous. Google even proposes a tool to generate the best prompt for what you need.
+- Custom GPT : different kind of tunned GPTs. Less and less important. OpenAI has many but now advertises its best model (except Scholar from what I’ve seen)
+- Copilot: Microsoft, Github
+- New hot trend : **agentic IA**, tunned LLMs working in team (It’s the final exercice of the training!)
+ 
+#### Models factors
+
+Video about the **number of parameters**, or “weights” inside LLM. They are the livers that control what kind of outputs is to predict.
+
+![log-scale of # parameters](./perso/pictures/1_4_nb_parames.PNG)
+ 
+But the efficiency depends on several factors, such as
+
+- **Tokenizing**. Models first focused on letters (small vocab but expects too much from the networks), then words (much easier to learn but leads to enormous vocabs with rare words omitted) and eventually tokens, a middle ground with a manageable vocab  and useful information for the NN. In addition, it elegantly handles word stems.
+https://platform.openai.com/tokenizer shows you what openAI considers as a token. Rare words or invented words are broken into multiple tokens with their meaning still captured. Ed shows several examples, particularly wih figures that are tokenized by 3 (explains why LLMs had difficulties with math)
+Rule of thumb in English : 1 token = 4 characters, 0,75 words. So 1000 tokens is ~750 words. It is higher in science, math or code.
+
+- or the **context window**. In a chat, your previous questions and answers pass again in the model to predict the next world in your current answer!
+
+
+#### API costs 
+
+Video 33 talks about **API costs** : they are based on the number of input and output tokens, but very low, except if you scale it up a lot.
+ 
+
+https://www.vellum.ai/llm-leaderboard compares many things, including the cost and context window of all models.
+
+Even Claude 3.5 Sonnet where you pay 15$ /1M tokens looks expensive but 1M token is a lot!
+
+In the API you can speciy the maximum outpout tokens that you authorize.
 
 ---
 
@@ -124,7 +167,3 @@ from IPython.display import Markdown, display
 display(Markdown("# This is a big heading!\n\n- And this is a bullet-point\n- So is this\n- Me, too!"))
 
 ```
-
-
-
-
