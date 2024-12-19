@@ -13,14 +13,17 @@ Course : https://edwarddonner.com/2024/11/13/llm-engineering-resources/, includi
 2. day2 : adapting it to ollama (a clean correction is available)
 3. day3 : comparing models
 4. day4 : Models framework : trends, factors, costs
-5. day5 : exercise
+5. day5 : exercise : classification of links, brochure creation.
 
 This week includes a guide to Jupyter (or notebooks?), some Pythons commands to learn, a troubleshooting code
 
+Day1 et Day5 use a class created to handle websites that could be useful.
+
+Eventually, `week1 EXERCISE` shows the example of a simple task asked to gpt or llama.
 
 # Ollama
 
-after downloading ollama ![here](https://ollama.com/download), powershell `ollama run llama3.2`.
+after downloading ollama [here](https://ollama.com/download), powershell `ollama run llama3.2`.
 
 ```
 Available Commands:
@@ -38,15 +41,15 @@ Use """ to begin a multi-line message.
 
 The first time, it will download many things but then you'll have a working llm directly!
 
-You can explore ![different models](https://ollama.com/search), having in mind your goals and your machine performance (models with many parameters are more complicated to run).
+You can explore [different models](https://ollama.com/search), having in mind your goals and your machine performance (models with many parameters are more complicated to run).
 
 Quinn2.5 is probably the best to handle different languages.
 
 # Openai API
 
-![lien](https://platform.openai.com/docs/overview)
+[lien](https://platform.openai.com/docs/overview)
 
-The key is stored in ".env", a txt file modified to be exactly named ".env" so that other instances understands where to look for it. It starts with `OPENAI_API_KEY=`, then you need to insert the API key ![built here](https://platform.openai.com/settings/organization/api-keys) with no space before.
+The key is stored in ".env", a txt file modified to be exactly named ".env" so that other instances understands where to look for it. It starts with `OPENAI_API_KEY=`, then you need to insert the API key [built here](https://platform.openai.com/settings/organization/api-keys) with no space before.
 
 # Using models
 
@@ -75,9 +78,15 @@ At the end on 2024, Frontier is:
 |Perplexity|||
 ```
 
+One-shot prompting  = 1 example
+
+Zero-shot prompting = no example
+
+Multi-shot prompting = several examples 
+
 ### Day 3 : comparing models
 
-![image]('./pictures/1_3_models.PNG')
+[main models](./pictures/1_3_models.PNG)
 
 Frontier LLMs have mind-blowing performance for :
 - synthesizing information
@@ -94,7 +103,7 @@ Typical questions to compare models that we're going to use :
 - "Compared with other Frontier LLMs, what kinds of questions are you best at answering, and what kinds of questions do you find most challenging? Which other LLM has capabilities that complement yours?"
 - "What does it feel like to be jealous?"
 - "How many times does the letter 'a' appear in this sentence?"
-- "Choose the world that best completes the analogy : Feather is to bird as sclae is to ______. A) reptile B) Dog C) Fish, D) Plant." proposed by ![Vellum](https://www.vellum.ai/blog/llm-benchmarks-overview-limits-and-model-comparison), a website that compares models we will see later. That reminds me of ComparIA.
+- "Choose the world that best completes the analogy : Feather is to bird as sclae is to ______. A) reptile B) Dog C) Fish, D) Plant." proposed by [Vellum](https://www.vellum.ai/blog/llm-benchmarks-overview-limits-and-model-comparison), a website that compares models we will see later. That reminds me of ComparIA.
 - "How many rainbows does it take to leap from Hawaii to 17" made models proposed a real number...
 
 > ChatGPT canvas allows you to talk with the Chat while it modifies the code you're talking about to suit your need : including examples, simplifying, excludes missing or empty values. ChatGPT understood the Hawaii joke.
@@ -133,7 +142,7 @@ Trends :
 
 Video about the **number of parameters**, or “weights” inside LLM. They are the livers that control what kind of outputs is to predict.
 
-![log-scale of # parameters](./perso/pictures/1_4_nb_parames.PNG)
+[log-scale of # parameters](./pictures/1_4_nb_params.PNG)
  
 But the efficiency depends on several factors, such as
 
