@@ -15,11 +15,11 @@ Course : https://edwarddonner.com/2024/11/13/llm-engineering-resources/, includi
 4. day4 : Models framework : trends, factors, costs
 5. day5 : exercise : classification of links, brochure creation.
 
-This week includes a guide to Jupyter (or notebooks?), some Pythons commands to learn, a troubleshooting code
+This week includes a guide to Jupyter (or notebooks?), some Python commands to learn, a troubleshooting code
 
 Day1 et Day5 use a class created to handle websites that could be useful.
 
-Eventually, `week1 EXERCISE` shows the example of a simple task asked to gpt or llama.
+Eventually, `week1 EXERCISE` shows the example of a simple task asked to gpt or ollama.
 
 # Ollama
 
@@ -45,11 +45,13 @@ You can explore [different models](https://ollama.com/search), having in mind yo
 
 Quinn2.5 is probably the best to handle different languages.
 
+> Alternative from work : `LM studio`
+
 # Openai API
 
 [lien](https://platform.openai.com/docs/overview)
 
-The key is stored in ".env", a txt file modified to be exactly named ".env" so that other instances understands where to look for it. It starts with `OPENAI_API_KEY=`, then you need to insert the API key [built here](https://platform.openai.com/settings/organization/api-keys) with no space before.
+The key is stored in ".env", a txt file modified to be exactly named ".env" so that other instances understand where to get it. It starts with `OPENAI_API_KEY=`, then you need to insert the API key [built here](https://platform.openai.com/settings/organization/api-keys) with no space before.
 
 # Using models
 
@@ -65,8 +67,8 @@ At the end of the course, we will master:
 
 At the end on 2024, Frontier is:
 
-```markdown
 |Open-Source|Closed-Source | from |
+|:------:|:----------:|:-----------:|
 |Llama||Meta|
 |Phi||Microsoft|
 |Mixtral||Mistral|
@@ -75,8 +77,7 @@ At the end on 2024, Frontier is:
 ||Claude|Anthropic|
 |Gema|Gemini|Google|
 ||Command R|Cohere|
-|Perplexity|||
-```
+|||Perplexity|
 
 One-shot prompting  = 1 example
 
@@ -86,9 +87,7 @@ Multi-shot prompting = several examples
 
 ### Day 3 : comparing models
 
-[main models](./pictures/1_3_models.PNG)
-
-Frontier LLMs have mind-blowing performance for :
+[Frontier LLMs](./pictures/1_3_models.PNG) have mind-blowing performance for :
 - synthesizing information
 - Fleshing out a skeleton (for instance write an email from notes)
 - coding (StackOverFlow lost audience)
@@ -103,12 +102,14 @@ Typical questions to compare models that we're going to use :
 - "Compared with other Frontier LLMs, what kinds of questions are you best at answering, and what kinds of questions do you find most challenging? Which other LLM has capabilities that complement yours?"
 - "What does it feel like to be jealous?"
 - "How many times does the letter 'a' appear in this sentence?"
-- "Choose the world that best completes the analogy : Feather is to bird as sclae is to ______. A) reptile B) Dog C) Fish, D) Plant." proposed by [Vellum](https://www.vellum.ai/blog/llm-benchmarks-overview-limits-and-model-comparison), a website that compares models we will see later. That reminds me of ComparIA.
+- "Choose the word that best completes the analogy : Feather is to bird as scale is to ______. <br>
+ A) reptile B) Dog C) Fish, D) Plant." <br>
+ proposed by [Vellum](https://www.vellum.ai/blog/llm-benchmarks-overview-limits-and-model-comparison), a website that compares models we will see later. That reminds me of ComparIA.
 - "How many rainbows does it take to leap from Hawaii to 17" made models proposed a real number...
 
-> ChatGPT canvas allows you to talk with the Chat while it modifies the code you're talking about to suit your need : including examples, simplifying, excludes missing or empty values. ChatGPT understood the Hawaii joke.
+> ChatGPT canvas allows you to talk with the Chat while it modifies the code you're talking about to suit your need : including examples, simplifying, excludes missing or empty values... ChatGPT understood the Hawaii joke.
 
-> Claude 3.5 is leading from October 24. The jealous question is even sensorial and sensitive to human feelings. Is is very interesting, it is critical, self-critical, socio-ethical points of view. When you ask for a code, if creates an `Artefact` on the left and keeps explaining, link Canvases from OpenAI
+> Claude 3.5 is leading from October 24. The jealous question is even sensorial and sensitive to human feelings. It is very interesting, it is critical, self-critical, socio-ethical points of view. When you ask for a code, if creates an `Artefact` on the left and keeps explaining, link Canvases from OpenAI
 
 > Gemini did not understand the nuanced joke about Hawaii but explains the issue. It is really bad at counting 'a's.
 
@@ -146,8 +147,8 @@ Video about the **number of parameters**, or “weights” inside LLM. They are 
  
 But the efficiency depends on several factors, such as
 
-- **Tokenizing**. Models first focused on letters (small vocab but expects too much from the networks), then words (much easier to learn but leads to enormous vocabs with rare words omitted) and eventually tokens, a middle ground with a manageable vocab  and useful information for the NN. In addition, it elegantly handles word stems.
-https://platform.openai.com/tokenizer shows you what openAI considers as a token. Rare words or invented words are broken into multiple tokens with their meaning still captured. Ed shows several examples, particularly wih figures that are tokenized by 3 (explains why LLMs had difficulties with math)
+- **Tokenizing**. Models first focused on letters (small vocab but expects too much from the networks), then words (much easier to learn but leads to enormous vocabs with rare words omitted) and eventually tokens, a middle ground with a manageable vocab  and useful information for the NN. In addition, it elegantly handles word stems. <br>
+https://platform.openai.com/tokenizer shows you what openAI considers as a token. Rare words or invented words are broken into multiple tokens with their meaning still captured. Ed shows several examples, particularly wih figures that are tokenized by 3 (explains why LLMs had difficulties with math) <br>
 Rule of thumb in English : 1 token = 4 characters, 0,75 words. So 1000 tokens is ~750 words. It is higher in science, math or code.
 
 - or the **context window**. In a chat, your previous questions and answers pass again in the model to predict the next world in your current answer!
@@ -162,13 +163,13 @@ https://www.vellum.ai/llm-leaderboard compares many things, including the cost a
 
 Even Claude 3.5 Sonnet where you pay 15$ /1M tokens looks expensive but 1M token is a lot!
 
-In the API you can speciy the maximum outpout tokens that you authorize.
+In the API you can specify the maximum outpout tokens that you authorize.
 
 ---
 
 # useful code
 
-For a nice display of a markdow: 
+For a nice display of a markdow : 
 
 ```python
 from IPython.display import Markdown, display
