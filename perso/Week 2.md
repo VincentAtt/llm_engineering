@@ -253,3 +253,61 @@ Vous verrez :
 - Deux champs d'entrée alignés côte à côte.
 - Un bouton pour exécuter la fonction.
 
+# Day 3 : User Interfaces and Chatbots - AI assistant on gradio
+
+### Context and Progress in Chatbots
+- Modern chatbots enable informed and contextual conversations, unlike older systems limited to predefined choices.
+- LLMs can:
+  - Maintain conversation history by including all context in the prompt.
+  - Adopt **custom personas**.
+  - Demonstrate subject matter expertise to answer questions competently.
+
+### Key Techniques for Interacting with LLMs
+1. **System Prompt**: Defines the tone of the conversation and sets rules.
+   - Example: "If you don’t know the answer, just say so."
+2. **Context**: Adds additional information to enhance responses.
+3. **Multi-shot Prompting**: Provides multiple examples in the prompt to guide the model’s behavior.
+   - Helps shape the LLM by offering response patterns.
+   - Differs from traditional training as it happens during inference (runtime).
+
+Reminder : 
+- LLMs generate responses by predicting the next tokens based on the provided history.
+- The quality of prompts significantly impacts model performance.
+
+### Notes
+
+About Gradio, we can use the ChatInterface function.
+
+Originally, we would have had to make functions that allows both an LLM model and a gradio app to correctly work together. But Gradio upgrade to adapt to OpenAI.
+
+We write a function `chat(message, history)` where:  
+**message** is the prompt to use  
+**history** is the past conversation, in OpenAI format
+
+We combine the system message, history and latest message, then call OpenAI.
+
+> About the structure of successive roles "system"/"user"/"asssistant" in a dictionnary, Ed explains that like everything else, LLMs understand tham as tokens but that the structure is automotically considered as mark-ups for a new step. It is not "implemented" : LLM have been trained like this !
+
+```python
+system_message = "You are a helpful assistant in a clothes store. You should try to gently encourage \
+the customer to try items that are on sale. Hats are 60% off, and most other items are 50% off. \
+For example, if the customer says 'I'm looking to buy a hat', \
+you could reply something like, 'Wonderful - we have lots of hats - including several that are part of our sales evemt.'\
+Encourage the customer to buy hats if they are unsure what to get."
+```
+
+Notice that we provide facts and examples. Examples allows us to introduce both tone and style. For instance, the chat can be very enthusiastic to sell more items.
+
+You can add options such as : 
+
+```python
+if 'belt' in message:  #highly improvable
+    relevant_system_message += " The store does not sell belts; if you are asked for belts, be sure to point out other items on sale."
+```
+
+OR including messages that have not actually happened in the beginning, to improve the chatbot through previous answers from the assitant.
+
+RAG is about finding such extra information that is relevant to the prompt and adding it in the context, in a more sophisticated way.
+
+I chose to answer the exercise in switching the prompt so the bot encourages customers to be eco-friendly.
+
