@@ -10,8 +10,9 @@
 
 - Temperature : from fully deterministic (0) to fully random and creative (1)
 
-- openai `completions` = continuer la conv
-On peut parametrer de creer plusieurs choices, sinon juste `choices[0]` disponible
+- openai 
+  - `completions` = continuer la conv
+  - on peut parametrer de creer plusieurs choices, sinon juste `choices[0]` disponible
 
 - Prompts usually works with `"role"`s defined in parameter `messages` : `system`, `user` and `assistant`
 
@@ -53,13 +54,13 @@ that can be completed to reflect a longer conversation :
 
 Actually, that is what happens when you discuss with an LLM chatbot : the whole conversation feeds the next word prediction.
 
-SO you can define GPT and Claude system prompts and functions `call_gpt()` and `call_claude()` and build a conversation !
+So you can define GPT and Claude system prompts and functions `call_gpt()` and `call_claude()` and build a conversation !
 
 # Day2 : Gradio
 
 Acquired by HuggingFace
 
-> `gradio` fonctionne avec websockets. La dernière version 14.1 semble incomaptible alors sur les conseils de chatGPT, on a rétrogradé : `pip install websockets==10.4`. A priori, pour ré-actualiser, `pip install --upgrade gradio`
+> `gradio` works with `websockets`. Gradio latest version 14.1 does not seem compatible with websockets. As suggested by ChatGPT, I downgraded it : `pip install websockets==10.4`. To upgrade it back, `pip install --upgrade gradio`
 
 You cannot really stream a message on gradio, but you can fake this in `yield`ing result in a look on chunks.
 
@@ -74,14 +75,6 @@ En Python, les fonctions `print`, `return`, et `yield` servent des objectifs tr�
 ### **1. `print`**
 - **Objectif :** Afficher du texte ou des données dans la console.
 - **Utilisation typique :** `print` est utilisé pour montrer des informations pendant l'exécution d'un programme (souvent à des fins de débogage ou pour fournir des sorties visibles à l'utilisateur).
-  
-**Exemple :**
-```python
-def afficher_message():
-    print("Bonjour, ceci est un message.")
-afficher_message()  # Affichera : Bonjour, ceci est un message.
-```
-
 - **Caractéristiques :**
   - Il ne modifie pas ou ne retourne pas de données dans le programme.
   - La valeur retournée par `print` est toujours `None`.
@@ -135,7 +128,7 @@ for valeur in generateur():
 | **But principal** | Afficher dans la console.          | Retourner une valeur.              | Générer des valeurs une par une.  |
 | **Sortie**         | `None`                            | Une valeur ou plusieurs.           | Un générateur/itérable.           |
 | **Utilisation**    | Interaction ou débogage.          | Passer des données au programme.   | Itération paresseuse (lazy).      |
-| **Arrête la fonction ?** | Non.                          | Oui, après l'exécution du `return`.| Non, la fonction peut continuer.  |
+| **Arrête la fonction ?** | Non.                          | Oui, après l'exécution du `return`.| Non.  |
 
 ---
 
@@ -214,7 +207,9 @@ interface = gr.Interface(
 # Lancer l'application
 interface.launch()
 ```
+
 Le paramètre `title` dans `gr.Interface` ajoute un titre simple au-dessus de votre interface.
+
 ---
 
 #### 2. Avec `gr.Blocks` pour une personnalisation avancée
@@ -246,12 +241,14 @@ demo.launch()
 - `gr.Markdown` permet d'écrire des titres avec Markdown, ce qui permet des styles plus avancés (par exemple, des emojis, des couleurs, etc.).
    - Vous pouvez également ajouter une description ou d'autres éléments visuels.
 
-#### Résultat attendu avec `gr.Blocks`
+
 Vous verrez :
 - Un titre en grand avec des emojis et du texte Markdown.
 - Une description sous le titre.
 - Deux champs d'entrée alignés côte à côte.
 - Un bouton pour exécuter la fonction.
+
+
 
 # Day 3 : User Interfaces and Chatbots - AI assistant on gradio
 
@@ -263,8 +260,7 @@ Vous verrez :
   - Demonstrate subject matter expertise to answer questions competently.
 
 ### Key Techniques for Interacting with LLMs
-1. **System Prompt**: Defines the tone of the conversation and sets rules.
-   - Example: "If you don’t know the answer, just say so."
+1. **System Prompt**: Defines the **tone** of the conversation and **sets rules** such as "**If you don’t know the answer, just say so.**"
 2. **Context**: Adds additional information to enhance responses.
 3. **Multi-shot Prompting**: Provides multiple examples in the prompt to guide the model’s behavior.
    - Helps shape the LLM by offering response patterns.
@@ -278,7 +274,7 @@ Reminder :
 
 About Gradio, we can use the ChatInterface function.
 
-Originally, we would have had to make functions that allows both an LLM model and a gradio app to correctly work together. But Gradio upgrade to adapt to OpenAI.
+Originally, we would have had to make functions that allows an LLM model and a gradio app to correctly work together. But Gradio upgraded to adapt to OpenAI.
 
 We write a function `chat(message, history)` where:  
 **message** is the prompt to use  
@@ -286,7 +282,7 @@ We write a function `chat(message, history)` where:
 
 We combine the system message, history and latest message, then call OpenAI.
 
-> About the structure of successive roles "system"/"user"/"asssistant" in a dictionnary, Ed explains that like everything else, LLMs understand tham as tokens but that the structure is automotically considered as mark-ups for a new step. It is not "implemented" : LLM have been trained like this !
+> About the structure of **successive roles "system"/"user"/"asssistant"** in a dictionnary, Ed explains that like everything else, LLMs understand them as tokens but that **the structure is automotically considered as mark-ups for a new step**. It is not "implemented" : LLM have been trained like this !
 
 ```python
 system_message = "You are a helpful assistant in a clothes store. You should try to gently encourage \
@@ -305,9 +301,134 @@ if 'belt' in message:  #highly improvable
     relevant_system_message += " The store does not sell belts; if you are asked for belts, be sure to point out other items on sale."
 ```
 
-OR including messages that have not actually happened in the beginning, to improve the chatbot through previous answers from the assitant.
+**OR including messages that have not actually happened** in the beginning, to improve the chatbot through previous answers from the assitant.
 
-RAG is about finding such extra information that is relevant to the prompt and adding it in the context, in a more sophisticated way.
+RAG is about finding such extra information that is relevant to the prompt and adding it in the context, in a more sophisticated way. More on that later.
 
 I chose to answer the exercise in switching the prompt so the bot encourages customers to be eco-friendly.
+
+#  Day 4 - Tools
+
+**Tools** allows Frontier models to connect with external functions
+ - richer responses by extending knowledge
+ - ability to carry out actions within the application
+ - enhanced capabilities like calculations
+
+How it works : **in a request to the LLM, specify available tools** 
+such as a function to compute things.
+The LLM will understand the conditionnal function by itself and it will look like it is running it.
+
+Use cases :
+- fetch data or add knowledge or context (like looking for term `belt` on day3)
+- perform calculations
+- take action like booking a meeting
+- modify the ui
+
+The 2 latter may actually be performed through a JSON response, as we did with links relevance
+but tools are the best solutions even for them if you want text in addition
+
+> Prompt tip : "Always be accurate. If you don't know the answer, say so"
+
+For instance, here, we don't want it to hallucinate prices
+
+```python
+
+# here is a useful function we would like it to use :
+
+ticket_prices = {"london": "$799", "paris": "$899", "tokyo": "$1400", "berlin": "$499"}
+
+def get_ticket_price(destination_city):
+    print(f"Tool get_ticket_price called for {destination_city}")
+    city = destination_city.lower()
+    return ticket_prices.get(city, "Unknown")
+
+# It must be integrated in a dictionnary structure describing the function :
+
+price_function = {
+    "name": "get_ticket_price",
+    "description": "Get the price of a return ticket to the destination city. Call this whenever you need to know the ticket price, for example when a customer asks 'How much is a ticket to this city'",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "destination_city": {
+                "type": "string",
+                "description": "The city that the customer wants to travel to",
+            },
+        },
+        "required": ["destination_city"],
+        "additionalProperties": False
+    }
+}
+
+# And it must be included in a list of tools:
+
+tools = [{"type": "function", "function": price_function}]
+
+# such as LLMs were trained with !
+
+```
+
+The chat function needs to be adapted, FROM THIS :
+
+```python
+
+def chat(message, history):
+    messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": message}]
+    response = openai.chat.completions.create(model=MODEL, messages=messages)
+    return response.choices[0].message.content
+
+gr.ChatInterface(fn=chat, type="messages").launch()
+
+```
+
+TO THIS :
+
+```python
+
+def chat(message, history):
+    messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": message}]
+    response = openai.chat.completions.create(model=MODEL, messages=messages, tools=tools)
+
+    if response.choices[0].finish_reason=="tool_calls":
+        message = response.choices[0].message
+        response, city = handle_tool_call(message)
+        messages.append(message)
+        messages.append(response)
+        response = openai.chat.completions.create(model=MODEL, messages=messages)
+    
+    return response.choices[0].message.content
+
+```
+
+And `handle_tool_call` must be defined :
+
+```python
+
+def handle_tool_call(message):
+    tool_call = message.tool_calls[0]
+    arguments = json.loads(tool_call.function.arguments)
+    city = arguments.get('destination_city')
+    price = get_ticket_price(city)
+    response = {
+        "role": "tool",
+        "content": json.dumps({"destination_city": city,"price": price}), # json.dumps put everything in string
+        "tool_call_id": tool_call.id
+    }
+    return response, city
+
+```
+
+> Note that if we had different possible tools to call, tool_call should depend on a condition to include them all.
+
+Eventually, gradio chat interface can be launched : `gr.ChatInterface(fn=chat, type="messages").launch()`.
+
+> I wonder if it works for Claude ? With the same commands ?
+
+Consequently, the usual structure is completed : system / user / assistant / user /assistant / user / assistant /.../ TOOL /// ...
+
+The chat function understands the tool function and it acts as it was running it !
+
+exercise : add a tool like booking a flight !
+
+tomorrow : agents carrying out sequential activities
 
