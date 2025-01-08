@@ -432,3 +432,62 @@ exercise : add a tool like booking a flight !
 
 tomorrow : agents carrying out sequential activities
 
+# Day 5 : Agents and sequential tasks
+
+It can have different meanings but tipically, **agents are software entities that can autonomously perform tasks**. They are commonly :
+- autonomous
+- goal-oriented
+- task specific
+
+They are designed to work as part of an **Agent Framework** to solve **complex problems** with limited human involvment.
+
+As it is task-specific, you can expect a sort of memory or persistence in the process.
+
+It can be programmed to **make decisions** or **orchestrate tasks**, to **plan capabilities** and to use **tools**. They can potentially use a database or the internet.
+
+## Exercise
+
+We are going to :
+ - write a function capable to generate images thanks to Dall.e 3
+ - create agents to generate sound and images
+ - and make an agent framework capable to speak and draw.
+
+> every image costs about $0.04 with dall.e-3 and $0.02 with dall.e-2.
+
+> Terms : "LLM" and audio/images
+> People tend to use "LLM" for all models behind GenAI systems. In practice, it is the topic although it is important to mention they're nlt bases by the same models and data.
+
+In the same openAI logic, we now use `openai.images.generate()` and `openai.audio.speech.create()`.
+
+Both of the image and audio functions show you how to decode the created object and `Display()` it on jupyter.
+
+> I save a version of the day5 code with all options to run audio results. On my computer, PC version 1 works !
+
+The term '**Agentic AI**' and **Agentization** is an umbrella term that refers to a number of techniques, such as:
+
+1. Breaking a complex problem into smaller steps, with multiple LLMs carrying out specialized tasks
+2. The ability for LLMs to use Tools to give them additional capabilities
+3. The 'Agent Environment' which allows Agents to collaborate
+4. An LLM can act as the Planner, dividing bigger tasks into smaller ones for the specialists
+5. The concept of an Agent having autonomy / agency, beyond just responding to a prompt - such as Memory
+
+We're showing 1 and 2 here, and to a lesser extent 3 and 5. In week 8 we will do the lot!
+
+# Final exercise of the week
+
+Either :
+
+## following day4/5 codes, add an agent
+
+For instance :
+  - a tool to pretend a booking has been made
+  - making an agent able to listen for Audio and convert it to text (solutions if needed)
+  - translating in a certain language the answers in your chatbot, using another LLM such as Claude, printed in another panel on gradio
+
+## Build a full prototype for the technical question/answerer you built in Week 1 Exercise.
+
+This should include a Gradio UI, streaming, use of the system prompt to add expertise, and the ability to switch between models. Bonus points if you can demonstrate use of a tool!
+
+If you feel bold, see if you can add audio input so you can talk to it, and have it respond with audio. ChatGPT or Claude can help you, or email me if you have questions.
+
+There are so many commercial applications for this, from a language tutor, to a company onboarding solution, to a companion AI to a course (like this one!) I can't wait to see your results.
